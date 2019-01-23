@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-var User = mongoose.model("users", {
+var user = mongoose.model("users", {
   email: {
     required: true,
     trim: true,
@@ -8,4 +8,4 @@ var User = mongoose.model("users", {
   }
 });
 
-module.exports = { User };
+module.exports = { user };

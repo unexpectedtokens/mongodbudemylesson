@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require("body-parser");
 
 var { mongoose } = require("./db/mongoose");
-var { toDo } = require("./models/todo");
+var { todo } = require("./models/todo");
 var { User } = require("./models/user");
 app.use(bodyParser.json());
 app.post("/todos", (req, res) => {
@@ -20,7 +20,7 @@ app.post("/todos", (req, res) => {
   );
 });
 app.get("/todos", (req, res) => {
-  Todo.find().then(
+  todo.find().then(
     todos => {
       res.send(todos);
     },
@@ -30,7 +30,7 @@ app.get("/todos", (req, res) => {
   );
 });
 app.listen(3001, () => {
-  console.log("Connected to localhost:8000");
+  console.log("Connected to http://localhost:3001");
 });
 
 module.exports = { app };

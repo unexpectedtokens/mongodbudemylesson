@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-var toDo = mongoose.model("ToDo", {
+var todo = mongoose.model("Todo", {
   text: {
     required: true,
     trim: true,
@@ -15,4 +15,4 @@ var toDo = mongoose.model("ToDo", {
     default: null
   }
 });
-module.exports = { toDo };
+module.exports = { todo };
