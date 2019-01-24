@@ -1,23 +1,25 @@
 const expect = require("expect");
 const request = require("supertest");
-
+const { ObjectID } = require("mongodb");
 const { app } = require("./../server");
-const { todo } = require("./../models/todo");
+const { toDo } = require("./../models/todo");
 
 const todos = [
   {
+    _id: new ObjectID(),
     text: "First test todo"
   },
   {
+    _id: new ObjectID(),
     text: "Second test todo"
   }
 ];
 
 beforeEach(done => {
-  todo
+  toDo
     .deleteMany({})
     .then(() => {
-      return todo.insertMany(todos);
+      return toDo.insertMany(todos);
     })
     .then(() => done());
 });
@@ -38,7 +40,7 @@ describe("POST /todos", () => {
           return done(err);
         }
 
-        todo
+        toDo
           .find({ text })
           .then(todos => {
             expect(todos.length).toBe(1);
@@ -59,7 +61,7 @@ describe("POST /todos", () => {
           return done(err);
         }
 
-        todo
+        toDo
           .find()
           .then(todos => {
             expect(todos.length).toBe(2);
@@ -81,3 +83,14 @@ describe("GET /todos", () => {
       .end(done);
   });
 });
+// describe("GET /todos/:id", () => {
+//   it("should get an object by id", done => {
+//     request(app)
+//       .get(`/todos/:${todos[0]._id.toHexString()}`)
+//       .expect(200)
+//       .expect(res => {
+//         expect(res.body).toBe(todos[0].text);
+//       })
+//       .end(done);
+//   });
+// });

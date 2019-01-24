@@ -4,8 +4,10 @@ const bodyParser = require("body-parser");
 let { ObjectID } = require("mongodb");
 
 var { mongoose } = require("./db/mongoose");
-var { todo } = require("./models/todo");
+var { toDo } = require("./models/todo");
 var { User } = require("./models/user");
+const port = process.env.PORT || 9999;
+
 app.use(bodyParser.json());
 app.post("/todos", (req, res) => {
   var todo = new toDo({
@@ -20,8 +22,11 @@ app.post("/todos", (req, res) => {
     }
   );
 });
+app.get("/", (req, res) => {
+  res.send("add /todos after your url");
+});
 app.get("/todos", (req, res) => {
-  todo.find().then(
+  toDo.find().then(
     todos => {
       res.send(todos);
     },
@@ -48,8 +53,8 @@ app.get("/todos/:id", (req, res) => {
     });
 });
 
-app.listen(3001, () => {
-  console.log("Connected to http://localhost:3001");
+app.listen(port, () => {
+  console.log(`Connected to http://localhost:${port}`);
 });
 
 module.exports = { app };
